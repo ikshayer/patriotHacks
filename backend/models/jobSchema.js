@@ -14,11 +14,10 @@ const jobSchema = new mongoose.Schema({
         required: true
     },
     requirements: {
-        type: String,
-        required: true,
+        type: String
     },
     age: {
-        type: Number,
+        type: String,
         required: true
     },
     contactInfo: {
@@ -27,7 +26,6 @@ const jobSchema = new mongoose.Schema({
     },
     tags: {
         type: String,
-        required: true
     },
     time: {
         type: String,

@@ -21,7 +21,7 @@ export const jobGet = async(req, res)=>{
 export const jobPost = async (req, res)=>{
     const job = req.body
 
-    if(!job.title || !job.author || !job.description || !job.requirement || !job.age || !job.contactInfo || !job.time || !job.location || !job.tags){
+    if(!job.title || !job.author || !job.description || !job.requirements || !job.age || !job.contactInfo || !job.time || !job.location ){
         return res.status(400).json({
             success: false,
             message: "Please enter valid information in all fields"
@@ -60,7 +60,7 @@ export const jobUpdate = async (req, res) =>{
         })
     }
     const job = req.body
-    if(!job.title || !job.author || !job.description || !job.requirement || !job.age || !job.contactInfo || !job.time || !job.location || !job.tags){
+    if(!job.title || !job.author || !job.description || !job.requirements || !job.age || !job.contactInfo || !job.time || !job.location){
         return res.status(400).json({
             success: false,
             msg: "Please enter valid values for all the fields"

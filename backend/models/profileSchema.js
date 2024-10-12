@@ -14,18 +14,17 @@ const profileSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    dateOfBirth: {
-        type: String,
-        required: true
-    },
+    /*
     daysAvailable: {
         type: String,
         required: true
     },
+    */
     location:   {
         type: String,
         required: true
     },
+    /*
     skills: {
         type: String,
         required: true
@@ -34,6 +33,7 @@ const profileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    */
     contactInformation: {
         type: String,
         required: true
