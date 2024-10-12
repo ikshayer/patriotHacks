@@ -12,7 +12,6 @@ const profileSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        required: true
     },
     /*
     daysAvailable: {
@@ -22,7 +21,6 @@ const profileSchema = new mongoose.Schema({
     */
     location:   {
         type: String,
-        required: true
     },
     /*
     skills: {
@@ -36,7 +34,6 @@ const profileSchema = new mongoose.Schema({
     */
     contactInformation: {
         type: String,
-        required: true
     }
 
 })
