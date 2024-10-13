@@ -16,7 +16,6 @@ function App() {
     <ChakraProvider theme={theme}>
     <Navbar/>
     <Routes>
-      
       <Route path="/" element={<Homepage/>}/>
       <Route path="/create" element={<Create/>}/>
       <Route path="/profile" element= {<Profile/>}/>
