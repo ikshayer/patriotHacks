@@ -1,7 +1,7 @@
 
 import {Route, Routes} from "react-router-dom"
 import Homepage from '../pages/Homepage.jsx'
-import Leaderboard from '../pages/Leaderboard.jsx'
+import Create from '../pages/Create.jsx'
 import Profile from "../pages/Profile.jsx"
 import {ChakraProvider, ColorModeScript} from '@chakra-ui/react'
 import Auth from '../pages/Auth.jsx'
@@ -14,9 +14,8 @@ function App() {
     <ChakraProvider theme={theme}>
     
     <Routes>
-      
       <Route path="/" element={<Homepage/>}/>
-      <Route path="/leaderboard" element={<Leaderboard/>}/>
+      <Route path="/create" element={<Create/>}/>
       <Route path="/profile" element= {<Profile/>}/>
       <Route path="/auth" element= {<Auth/>}/>
       
