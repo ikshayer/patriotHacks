@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+
 const useProfile = create((set) => ({
 	profiles: [],
 	setProfiles: (profiles) => set({ profiles }),
@@ -22,7 +23,13 @@ const useProfile = create((set) => ({
 		const res = await fetch("/profiles");
 		const data = await res.json();
 		set({ profiles: data.data });
+        return {success: true, data: data}
 	},
+    fetchIndividualProfiles: async(uid) =>{
+        const res = await fetch(`profiles/${uid}`)
+        const data = await res.json();
+        return {success: true, data: data}
+    },
 	deleteProfiles: async (pid) => {
 		const res = await fetch(`/profiles/${pid}`, {
 			method: "DELETE",
@@ -31,8 +38,10 @@ const useProfile = create((set) => ({
 		if (!data.success) return { success: false, message: data.message };
 
 		// update the ui immediately, without needing a refresh
-		set((state) => ({ jobs: state.jobs.filter((job) => job._id !== pid) }));
+		set((state) => ({ profiles: state.profiles.filter((profile) => profile._id !== pid) }));
+        
 		return { success: true, message: data.message };
+        
 	},
 	updateProfile: async (pid, updatedProfile) => {
 		const res = await fetch(`/profiles/${pid}`, {

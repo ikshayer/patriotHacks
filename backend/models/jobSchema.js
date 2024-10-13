@@ -16,10 +16,6 @@ const jobSchema = new mongoose.Schema({
     requirements: {
         type: String
     },
-    age: {
-        type: String,
-        required: true
-    },
     contactInfo: {
         type: String,
         required: true

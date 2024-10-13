@@ -1,60 +1,42 @@
 import {Box, Container, HStack, Text, Link, Button, useDisclosure, Stack, Input, Slide} from '@chakra-ui/react'
-import { useRef } from 'react'
-import {
-    Drawer,
-    DrawerBody,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
-  } from '@chakra-ui/react'
+import Cookie from 'js-cookie'
+import { useState } from 'react'
+
 
 function Navbar(){
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const btnRef = useRef()
+    //const { isOpen, onOpen, onClose } = useDisclosure()
+    const [value, setValue] = useState('Sign Up / Log In')
+    const x = Cookie.get('check')
+    const y = Cookie.get('username')
 
-
-
+    if(!x && y){
+        setValue("Log out")
+    }
+    
+    const handleAuth = () =>{
+        if(!x && y){
+            setValue("Log out")
+            Cookie.remove('username')
+        }
+        else{
+            window.location.href='/auth'
+        }
+        
+    }
 
     return(
         <>
         <Container>
     
             <HStack spacing={5} justifyContent='center'>
-            <Text color='#a4ac86' fontSize='2xl' bgColor='#3a5a40' padding='10px 10%' borderRadius='25px'><Link>Home</Link></Text>
-            <Text color='#a4ac86' fontSize='2xl' bgColor='#3a5a40' padding='10px 10%' borderRadius='25px'><Link>Leaderboard</Link></Text>
-            <Text color='#a4ac86' fontSize='2xl' bgColor='#3a5a40' padding='10px 10%' borderRadius='25px'><Link>Profile</Link></Text>
+            <Text color='#a4ac86' fontSize='2xl' bgColor='#3a5a40' padding='10px 10%' borderRadius='25px'><Link href='/'>Feed</Link></Text>
+            <Text color='#a4ac86' fontSize='2xl' bgColor='#3a5a40' padding='10px 10%' borderRadius='25px'><Link href='/create'>Create</Link></Text>
+            <Text color='#a4ac86' fontSize='2xl' bgColor='#3a5a40' padding='10px 10%' borderRadius='25px'><Link href='/profile'>Profile</Link></Text>
             
-            <Text><Button color='#a4ac86' bgColor='#7f4f24' padding='12px 10%' borderRadius='25px' fontSize='2xl' width='200px' height='auto' onClick={onOpen}>Category</Button></Text>
+            <Text><Button color='#a4ac86' bgColor='#7f4f24' padding='12px 10%' borderRadius='25px' fontSize='2xl' width='200px' height='auto' onClick={handleAuth}>{value}</Button></Text>
             </HStack>
 
         </Container>
-
-        <Drawer
-            isOpen={isOpen}
-            placement='right'
-            onClose={onClose}
-            trapFocus={false}
-            z-index = '-1'
-        >
-            <DrawerOverlay />
-            <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Create your account</DrawerHeader>
-
-            <DrawerBody>
-                <Input placeholder='Type here...' />
-            </DrawerBody>
-
-            <DrawerFooter>
-                <Button variant='outline' mr={3} onClick={onClose}>
-                Cancel
-                </Button>
-                <Button colorScheme='blue'>Save</Button>
-            </DrawerFooter>
-            </DrawerContent>
-        </Drawer>
         </>
     
        /*

@@ -4,7 +4,7 @@ export const useJobFeed = create((set) => ({
 	jobs: [],
 	setJobs: (jobs) => set({ jobs }),
 	createJobs: async (newJob) => {
-		if (!newJob.name || !newJob.image || !newJob.price) {
+		if (!newJob.title || !newJob.author || !newJob.location || !newJob.time || !newJob.description) {
 			return { success: false, message: "Please fill in all fields." };
 		}
 		const res = await fetch("/jobs", {

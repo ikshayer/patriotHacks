@@ -6,7 +6,7 @@ export const profileGet = async(req, res)=>{
         const profiles = await profileModel.find()
         res.status(200).json({
             success: true,
-            data: jobs
+            data: profiles
         })
     }
     catch(error){
@@ -17,10 +17,30 @@ export const profileGet = async(req, res)=>{
     }
 }
 
+export const profileIndividualGet = async (req, res) =>{
+    const {username} = req.params
+    try{
+        const profile = await profileModel.findOne({
+            username: username
+        })
+        res.status(200).json({
+            success: true,
+            data: profile
+        })
+    }
+    catch(err){
+        console.log(err)
+        req.status(500).json({
+            success: false,
+            message: "Server error"
+        })
+    }
+}
+
 export const profilePost = async (req, res)=>{
     const profile = req.body
 
-    if(!profile.username || !profile.password || !profile.age || !profile.dateOfBirth || !profile.daysAvailable || !profile.location || !profile.skills || !profile.preferences || !profile.contactInformation){
+    if(!profile.username || !profile.password ){
         return res.status(400).json({
             success: false,
             message: "Please enter valid information in all fields"
@@ -59,7 +79,7 @@ export const profileUpdate = async (req, res) =>{
         })
     }
     const profile = req.body
-    if(!profile.username || !profile.password || !profile.age || !profile.dateOfBirth || !profile.daysAvailable || !profile.location || !profile.skills || !profile.preferences || !profile.contactInformation){
+    if(!profile.username || !profile.password){
         return res.status(400).json({
             success: false,
             msg: "Please enter valid values for all the fields"
