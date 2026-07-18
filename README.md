@@ -1,96 +1,69 @@
 # PatriotHacks
 
-George Mason University's hackathon — landing site. **Coming Spring 2027.**
+Monorepo for George Mason University's hackathon, **PatriotHacks**. Two
+independent sites, each deployed separately:
 
-Built with **Vite + React + TypeScript + Tailwind CSS v4**.
+| App | Path | What it is |
+| --- | --- | --- |
+| **Main site** | [`apps/web`](apps/web) | Public landing page — hero, sponsors, FAQ, interest-list email capture. |
+| **Sponsors site** | [`apps/sponsors`](apps/sponsors) | Sponsorship prospectus — tiers, benefits matrix, and add-ons for prospective sponsors. |
 
-## Sections
+Both are **Vite + React + TypeScript + Tailwind CSS v4**, managed with
+**npm workspaces**.
 
-- **Hero** — plain white background with an animated field of drifting dots
-  (canvas, respects reduced-motion), the PatriotHacks wordmark, and the
-  interest-list email bar.
-- **Sponsors** — tiered logo grid (empty until you add sponsors).
-- **FAQ** — accordion of common questions.
-- **Contact band** — "Questions? Reach out to patriothacksgmu@gmail.com".
-- **Footer** — dark, two-column: identity on the left, code of conduct +
-  socials + address on the right.
-
-The theme is George Mason **green + gold on white**.
-
-## Run it locally
+## Getting started
 
 ```bash
-npm install
-npm run dev      # http://localhost:5173
-npm run build    # type-check + production build → dist/
-npm run preview  # serve the production build
+npm install            # installs deps for both apps (run once, at the root)
+
+npm run dev            # main site  → http://localhost:5173
+npm run dev:sponsors   # sponsors   → http://localhost:5174
 ```
+
+## Scripts (run from the repo root)
+
+| Command | Does |
+| --- | --- |
+| `npm run dev` / `npm run dev:web` | Dev server for the main site (:5173). |
+| `npm run dev:sponsors` | Dev server for the sponsors site (:5174). |
+| `npm run build` | Build **both** apps. |
+| `npm run build:web` | Build only the main site → `apps/web/dist`. |
+| `npm run build:sponsors` | Build only the sponsors site → `apps/sponsors/dist`. |
+| `npm run preview:web` / `npm run preview:sponsors` | Serve a built app locally. |
+| `npm run lint` | Type-check both apps. |
+
+You can also work inside an app directly (`cd apps/web && npm run dev`).
 
 ## Editing content
 
-Almost everything lives in **`src/config.ts`**:
+Each app keeps its editable content in **`src/config.ts`**:
 
-- `CONTACT_EMAIL` — the address the contact band, footer, and sponsor CTA use.
-- `EVENT` — the "Coming Spring 2027" label and the eyebrow text.
-- `SPONSOR_TIERS` — add sponsors here (see below).
-- `FAQS` — the question/answer list.
-- `FOOTER` — code-of-conduct link, address lines, social links, support-logo
-  partners, and the "built by" credit (see below).
+- **`apps/web/src/config.ts`** — contact email, event label, sponsors grid, FAQ,
+  footer, and the interest-list signup endpoint. See
+  [`apps/web/README.md`](apps/web/README.md) for the full guide (including how to
+  wire up the Google Sheet email capture).
+- **`apps/sponsors/src/config.ts`** — the sponsorship pitch, stats, tiers,
+  benefits matrix, and add-ons. The tier cards and the comparison table are both
+  generated from the `TIERS` + `BENEFITS` data, so they never drift apart. The
+  numbers and prices ship as **placeholders** — replace them with your real
+  prospectus figures before sharing.
 
-### Add your logo
-
-Drop your logo into `public/` as `logo.svg` (or `logo.png` and update the
-`src` in `src/components/Navbar.tsx`). It appears next to the wordmark in the
-nav. The big hero title is set in type, so no image is required there.
-
-### Add / edit sponsors
-
-The sponsors section is a rotating grid of tiles; clicking a tile shows that
-company's details in the panel beside it. Edit the `SPONSORS` array in
-`src/config.ts`:
-
-```ts
-{
-  name: 'Acme Corp',
-  description: 'What the company does, in a sentence or two.',
-  logo: '/sponsors/acme.svg', // optional — omit to show the name as text
-  url: 'https://acme.com',     // optional — adds a "Visit website" link
-}
-```
-
-`logo` is optional: until you add a logo file (drop it in `public/sponsors/`),
-each tile shows the company name as text. Order in the array = order in the grid.
-
-### Wire up the email signups (private Google Sheet database)
-
-The "Notify me" bar appends every email (with a timestamp) to a Google Sheet
-only you can see — a hidden database. It POSTs to a Google Apps Script Web App,
-so there's no backend to host and no secrets in the code.
-
-1. Create a **Google Sheet** (this is your database). Optionally add a header
-   row: `Timestamp | Email`.
-2. In that Sheet: **Extensions → Apps Script**. Replace the placeholder code
-   with the contents of [`apps-script/Code.gs`](apps-script/Code.gs) and save.
-3. **Deploy → New deployment → Web app.** Set **Execute as: Me** and **Who has
-   access: Anyone**, click Deploy, authorize, and copy the `/exec` URL.
-4. Paste that URL into `SIGNUP_ENDPOINT` in `src/config.ts`.
-
-Until `SIGNUP_ENDPOINT` is set, the bar runs in **demo mode**: it shows the
-success message without storing anything. New emails then land as rows in your
-Sheet. (Only people you share the Sheet with can read it — the endpoint URL
-itself is safe to ship.)
-
-### Edit the footer
-
-In `src/config.ts`, the `FOOTER` object controls the dark footer:
-
-- `codeOfConductUrl` — defaults to the official MLH Code of Conduct.
-- `address` — array of lines shown stacked.
-- `socials` — one entry per platform (`instagram`, `twitter`, `facebook`,
-  `linkedin`, `github`). An empty `href` renders the icon greyed-out (a visual
-  placeholder) rather than a link; fill it in to make it clickable.
+The `MAIN_SITE_URL` constant in `apps/sponsors/src/config.ts` points the
+sponsors site's nav/footer back at the main site — update it once the main
+site's domain is live.
 
 ## Deploy
 
-Configured for **Vercel** (`vercel.json`) and **Netlify** (`netlify.toml`).
-Import the repo on either — build command `npm run build`, output `dist/`.
+Each app deploys as its **own project** from this one repo. On **Vercel**, create
+two projects pointing at the same repo and set:
+
+| Setting | Main site | Sponsors site |
+| --- | --- | --- |
+| **Root Directory** | `apps/web` | `apps/sponsors` |
+| Framework | Vite | Vite |
+| Build command | `npm run build` | `npm run build` |
+| Output directory | `dist` | `dist` |
+
+Vercel detects the npm workspace and installs from the repo root automatically.
+Each app also ships a `vercel.json` and a `netlify.toml` with the same settings,
+so Netlify works the same way (set the app folder as the site's base directory).
