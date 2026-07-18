@@ -214,8 +214,6 @@ export const FOOTER = {
   /** Address lines, shown stacked. */
   address: ['George Mason University', 'Fairfax, VA 22030'],
   socials: [
-    { platform: 'instagram', href: '' },
-    { platform: 'twitter', href: '' },
-    { platform: 'facebook', href: '' },
+    { platform: 'instagram', href: 'https://instagram.com/patriothacks' },
   ] as SocialLink[],
 } as const
