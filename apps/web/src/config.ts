@@ -9,6 +9,13 @@
 /** Where "Questions? Reach out to …" and the footer point. */
 export const CONTACT_EMAIL = 'patriothacksgmu@gmail.com'
 
+/**
+ * The sponsorship prospectus site (the `apps/sponsors` deployment). The
+ * "Interested in Sponsoring?" button links here. Update this to the real
+ * deployed URL once the sponsors site is live.
+ */
+export const SPONSOR_SITE_URL = 'https://sponsor.patriothacks.org'
+
 /** Hero text. */
 export const EVENT = {
   /** Shown in the hero, e.g. "Coming Spring 2027". */

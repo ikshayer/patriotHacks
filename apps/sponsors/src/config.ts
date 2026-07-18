@@ -2,16 +2,29 @@
  * PatriotHacks — Sponsorship site content & configuration
  * ---------------------------------------------------------------------
  * This is the sponsorship prospectus site. Everything a sponsor sees —
- * the pitch, the stats, the tiers, and the benefits matrix — lives in
+ * the pitch, the past-sponsor logos, and the benefits matrix — lives in
  * this one file. Components read from here, so you rarely touch JSX.
  *
- * NOTE: the numbers, prices, and benefits below are placeholders to get
- * the layout right. Replace them with your real prospectus figures
- * before sharing this with sponsors.
+ * NOTE: the prices and benefits below are placeholders to get the layout
+ * right. Replace them with your real prospectus figures before sharing
+ * this with sponsors.
  * ===================================================================== */
 
 /** Where the "Get in touch" / contact CTAs point. */
 export const CONTACT_EMAIL = 'patriothacksgmu@gmail.com'
+
+/** Instagram — shown in the reach-out methods. `handle` renders as @handle. */
+export const INSTAGRAM = {
+  handle: 'patriothacks',
+  url: 'https://instagram.com/patriothacks',
+} as const
+
+/**
+ * Dedicated booking page — the "Book a meeting" buttons link here. It's a
+ * standalone page (public/book/index.html) that embeds the Cal.com
+ * scheduler and nothing else. To change the booking link, edit that file.
+ */
+export const BOOK_MEETING_URL = '/book'
 
 /** Link back to the main marketing site (nav + footer). */
 export const MAIN_SITE_URL = 'https://patriothacks.org'
@@ -28,59 +41,106 @@ export const EVENT = {
  * ------------------------------------------------------------------- */
 export const HERO = {
   eyebrow: 'Sponsorship Prospectus · Spring 2027',
-  title: 'Partner with PatriotHacks',
+  title: 'Creating the next generation of builders and innovators',
   subtitle:
-    "Put your brand in front of the next generation of builders. PatriotHacks is George Mason University's flagship student hackathon — a weekend where hundreds of students design, build, and ship. Your sponsorship fuels it, and puts you first in line for their talent.",
+    "PatriotHacks is George Mason University's flagship student hackathon — a weekend where hundreds of students design, build, and ship. Your sponsorship fuels it, and puts you first in line for their talent.",
 } as const
 
 /* ---------------------------------------------------------------------
- * By the numbers — the stat band under the hero.
- * (Projected figures for Spring 2027 — update with real numbers.)
+ * About section — the stats rectangle + the location / campus block.
+ * ---------------------------------------------------------------------
+ * STATS are placeholders/projections — swap in real figures. The location
+ * `image` should live under public/campus/.
  * ------------------------------------------------------------------- */
+export const ABOUT = {
+  eyebrow: 'About',
+  heading: 'A weekend of building at George Mason',
+} as const
+
 export type Stat = { value: string; label: string }
 
 export const STATS: Stat[] = [
-  { value: '500+', label: 'Student hackers' },
-  { value: '36', label: 'Hours of non-stop building' },
-  { value: '40k+', label: 'Students across GMU' },
-  { value: '#1', label: 'Largest public university in Virginia' },
+  { value: '800+', label: 'Expected hackers' },
+  { value: '36', label: 'Hours to build' },
+  { value: '40K+', label: 'Students at GMU' },
+  { value: '#1', label: 'Largest university in Virginia' },
 ]
 
+export const LOCATION = {
+  /** Google Maps embed (no API key needed) — centered on GMU's Fairfax campus. */
+  mapSrc: 'https://www.google.com/maps?q=38.8304,-77.3074&z=14&output=embed',
+  /** Opens the full map in a new tab. */
+  mapLink: 'https://www.google.com/maps/search/?api=1&query=George+Mason+University',
+  /** Facts shown in the vertical rotator beside the map, cycling in order. */
+  facts: [
+    '20 minutes from Washington, D.C.',
+    '2 hours from Richmond',
+    '3 hours from Philadelphia',
+    '4 hours from New York City',
+    'Largest university in Virginia',
+  ],
+} as const
+
 /* ---------------------------------------------------------------------
- * Why sponsor — the value-proposition cards.
+ * Hero photo carousel
+ * ---------------------------------------------------------------------
+ * The hero cross-fades through these photos. Drop your hackathon photos
+ * into public/hero/ and list them here — landscape shots (roughly 3:2 or
+ * 16:9) read best. The files currently shipped are placeholders; swap them
+ * for real event photos (add or remove entries freely).
  * ------------------------------------------------------------------- */
-export type Value = { title: string; body: string }
+export type HeroImage = { src: string; alt: string }
 
-export const WHY_SPONSOR: Value[] = [
-  {
-    title: 'Recruit early',
-    body: "Meet motivated CS, engineering, and design students before they hit the job market. Collect résumés, run interviews on-site, and watch candidates build under real deadlines.",
-  },
-  {
-    title: 'Brand visibility',
-    body: 'Your logo on the venue, the website, the swag, and every project submission. Reach thousands of students across the DMV region in person and online.',
-  },
-  {
-    title: 'Showcase your tech',
-    body: 'Run a workshop, sponsor an API prize track, or drop by with hardware. Students build on the tools they discover here — and carry them into their careers.',
-  },
-  {
-    title: 'Invest in the community',
-    body: 'Support the next generation of technologists at one of the most diverse public universities in the country, minutes from Washington, D.C.',
-  },
+export const HERO_IMAGES: HeroImage[] = [
+  { src: '/hero/1.jpg', alt: 'Students collaborating at PatriotHacks' },
+  { src: '/hero/2.jpg', alt: 'The PatriotHacks venue during the event' },
 ]
 
 /* ---------------------------------------------------------------------
- * Tiers + benefits — the single source of truth.
+ * Past sponsors — the horizontal logo marquee.
+ * ---------------------------------------------------------------------
+ * Logos rotate in an infinite horizontal reel. Drop a logo file in
+ * /public/sponsors/ and reference it here. `scale` bumps square/compact
+ * logos up so they read at the same visual size as wide wordmarks.
+ * ------------------------------------------------------------------- */
+export type Sponsor = {
+  name: string
+  logo: string
+  url?: string
+  /** Logo size multiplier (default 1). */
+  scale?: number
+  /**
+   * Skip the dark-mode whitening filter. Set for logos whose PNG is already
+   * styled for the dark theme (e.g. Salesforce's white cloud + black text,
+   * Red Bull's black-on-white sticker) and should render as-is.
+   */
+  raw?: boolean
+}
+
+export const SPONSORS: Sponsor[] = [
+  { name: 'Major League Hacking', logo: '/sponsors/mlh.png', scale: 1.2, url: 'https://mlh.io' },
+  { name: 'Microsoft', logo: '/sponsors/microsoft.png', scale: 1.4, url: 'https://microsoft.com' },
+  { name: 'AWS', logo: '/sponsors/aws.png', scale: 1.5, url: 'https://aws.amazon.com' },
+  { name: 'Palantir', logo: '/sponsors/palantir.png', scale: 1.4, url: 'https://palantir.com' },
+  { name: 'Salesforce', logo: '/sponsors/salesforce.png', scale: 1.55, raw: true, url: 'https://salesforce.com' },
+  { name: 'MetroStar', logo: '/sponsors/metrostar.png', scale: 1.4, url: 'https://metrostar.com' },
+  { name: 'EY', logo: '/sponsors/ey.png', scale: 1.9, url: 'https://ey.com' },
+  { name: 'Peraton', logo: '/sponsors/peraton.png', url: 'https://peraton.com' },
+  { name: 'Red Bull Basement', logo: '/sponsors/redbull.png', scale: 1.7, raw: true, url: 'https://redbull.com/basement' },
+  { name: 'Cloudforce', logo: '/sponsors/cloudforce.png', url: 'https://gocloudforce.com' },
+  { name: 'Department of Treasury', logo: '/sponsors/treasury.png', scale: 2, raw: true, url: 'https://home.treasury.gov' },
+  { name: 'Fannie Mae', logo: '/sponsors/fannie-mae.png', scale: 1.4, url: 'https://fanniemae.com' },
+  { name: 'GDIT', logo: '/sponsors/gdit.png', url: 'https://gdit.com' },
+]
+
+/* ---------------------------------------------------------------------
+ * Tiers + benefits — the single source of truth for the comparison table.
  * ---------------------------------------------------------------------
  * TIERS defines the columns (name + price). BENEFITS defines the rows;
  * each benefit marks which tiers include it:
  *   true    → included (renders a checkmark)
- *   'text'  → included with a specific value (e.g. "3", "Yes — 1 track")
+ *   'text'  → included with a specific value (e.g. "3", "45 min")
  *   absent  → not included
- *
- * Both the tier cards and the comparison table are generated from this,
- * so they never drift out of sync. Add a benefit → add its `tiers` map.
  * ------------------------------------------------------------------- */
 export const TIERS = [
   { key: 'bronze', name: 'Bronze', price: '$500' },
@@ -138,61 +198,6 @@ export const BENEFITS: Benefit[] = [
   {
     label: 'Naming rights ("presented by …")',
     tiers: { title: true },
-  },
-]
-
-/** Benefits included in a given tier (used by the tier cards). */
-export function benefitsForTier(key: TierKey): { label: string; value?: string }[] {
-  return BENEFITS.filter((b) => b.tiers[key]).map((b) => {
-    const v = b.tiers[key]
-    return typeof v === 'string' ? { label: b.label, value: v } : { label: b.label }
-  })
-}
-
-/* ---------------------------------------------------------------------
- * À la carte — optional add-ons on top of any tier.
- * ------------------------------------------------------------------- */
-export type AddOn = { name: string; price: string; description: string }
-
-export const ADD_ONS: AddOn[] = [
-  {
-    name: 'Meal sponsorship',
-    price: '$1,000',
-    description: 'Put your brand on a catered meal for all hackers — breakfast, lunch, dinner, or the midnight snack run.',
-  },
-  {
-    name: 'Swag insert',
-    price: '$400',
-    description: 'Include your stickers, flyers, or branded goodies in every attendee swag bag.',
-  },
-  {
-    name: 'Bonus prize',
-    price: 'In-kind',
-    description: 'Donate hardware, subscriptions, or credits as a prize for your own mini-challenge.',
-  },
-]
-
-/* ---------------------------------------------------------------------
- * FAQ — sponsor-facing questions.
- * ------------------------------------------------------------------- */
-export type FaqItem = { q: string; a: string }
-
-export const FAQS: FaqItem[] = [
-  {
-    q: 'How do funds get used?',
-    a: 'Sponsorship covers food, venue, prizes, hardware, and travel for students. PatriotHacks is a free, student-run event — every dollar goes directly to the attendee experience.',
-  },
-  {
-    q: 'Can we customize a package?',
-    a: `Absolutely. The tiers below are a starting point — if you have specific recruiting, branding, or workshop goals, email us at ${CONTACT_EMAIL} and we'll build a package around them.`,
-  },
-  {
-    q: 'When is the deadline to sponsor?',
-    a: 'The earlier the better — logo placement, workshop slots, and prize tracks are confirmed on a first-come basis as the event approaches. Reach out any time before Spring 2027.',
-  },
-  {
-    q: 'Do you accept in-kind sponsorship?',
-    a: 'Yes — hardware, cloud credits, software licenses, food, and API access all make great in-kind contributions. We can map their value onto a tier.',
   },
 ]
 

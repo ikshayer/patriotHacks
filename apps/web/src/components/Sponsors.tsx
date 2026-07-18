@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { CONTACT_EMAIL, SPONSORS, type Sponsor } from '../config'
+import { SPONSORS, SPONSOR_SITE_URL, type Sponsor } from '../config'
 
 const COLS = 4
 const SLIDE_MS = 800 // vertical slide duration (per column)
@@ -127,7 +127,7 @@ export default function Sponsors() {
 
         <div className="mt-16 text-center">
           <a
-            href={`mailto:${CONTACT_EMAIL}?subject=Sponsor%20PatriotHacks%202027`}
+            href={SPONSOR_SITE_URL}
             className="inline-block bg-mason px-8 py-3.5 font-semibold text-white transition hover:bg-mason-deep"
           >
             Interested in Sponsoring?

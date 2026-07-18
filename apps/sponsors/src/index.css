@@ -1,31 +1,33 @@
 @import 'tailwindcss';
 
 /* ------------------------------------------------------------------ *
- * Design tokens — shared with the main PatriotHacks site.
- * Light theme, George Mason green + gold on white.
+ * Design tokens — DARK theme, George Mason green + gold on near-black.
  * Exposed as Tailwind utilities: bg-paper, text-ink, text-mason, …
+ * (Semantic names are kept from the light theme; only the values flip,
+ * so components read the same classes.)
  * ------------------------------------------------------------------ */
 @theme {
-  /* Surfaces */
-  --color-paper: #ffffff;
-  --color-mist: #f4f6f4;
-  --color-line: #e6e9e6;
+  /* Surfaces (dark) */
+  --color-paper: #0b0b0e; /* page background */
+  --color-mist: #15151a; /* elevated band (partners) */
+  --color-line: #2a2a33; /* hairline borders */
 
   /* Text */
-  --color-ink: #0f1712;
-  --color-slate: #566159;
+  --color-ink: #f4f4f6; /* primary text (light) */
+  --color-slate: #9aa0ab; /* muted text */
 
   /* GMU green — primary brand */
-  --color-mason: #006633;
-  --color-mason-deep: #004a25;
-  --color-mason-soft: #e4f0e9;
+  --color-mason: #006633; /* solid fills; white text reads on it */
+  --color-mason-deep: #008040; /* button hover — lifts brighter on dark */
+  --color-mason-soft: #103024; /* dark-green tint: chips, highlight col, glow */
+  --color-mason-bright: #3ecf7f; /* green for TEXT / checks on dark */
 
-  /* GMU gold — accent (fills only; too light for text on white) */
+  /* GMU gold — accent */
   --color-gold: #ffc629;
   --color-gold-deep: #e0a500;
 
-  /* Footer / dark surfaces */
-  --color-night: #0a0a0a;
+  /* Even-darker surfaces (footer) */
+  --color-night: #060608;
   --color-night-2: #000000;
 
   /* Geist everywhere, including the PatriotHacks wordmark. */
@@ -53,14 +55,14 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-mason);
+    outline: 2px solid var(--color-mason-bright);
     outline-offset: 2px;
     border-radius: 4px;
   }
 
   ::selection {
     background: var(--color-gold);
-    color: var(--color-ink);
+    color: #0b0b0e;
   }
 }
 
@@ -93,6 +95,22 @@
 
 .animate-fade {
   animation: fade 0.4s ease both;
+}
+
+/* Infinite horizontal logo reel. The track holds two identical copies of
+ * the logo set, so translating by -50% loops seamlessly. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 48s linear infinite;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {

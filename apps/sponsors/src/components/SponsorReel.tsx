@@ -1,0 +1,52 @@
+import { SPONSORS } from '../config'
+
+/**
+ * The rotating past-sponsor logo reel (no wrapper/heading) — reused inside the
+ * About rectangle. Two identical copies of the logo set slide by -50% via the
+ * CSS `marquee` animation and loop seamlessly; each item carries its own right
+ * margin (not a flex `gap`) so the last logo keeps trailing space. For the dark
+ * theme logos are whitened with a CSS filter, except `raw` logos (Salesforce,
+ * Red Bull, Treasury) which already ship dark-ready. Hover pauses it.
+ */
+export default function SponsorReel() {
+  const reel = [...SPONSORS, ...SPONSORS]
+
+  return (
+    <div
+      className="group relative overflow-hidden"
+      style={{
+        maskImage:
+          'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
+        WebkitMaskImage:
+          'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
+      }}
+    >
+      <div className="animate-marquee flex w-max items-center group-hover:[animation-play-state:paused]">
+        {reel.map((s, i) => {
+          const dup = i >= SPONSORS.length
+          return (
+            <a
+              key={i}
+              href={s.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={dup ? undefined : s.name}
+              aria-hidden={dup || undefined}
+              tabIndex={dup ? -1 : undefined}
+              className="mr-12 flex shrink-0 items-center opacity-80 transition hover:opacity-100 sm:mr-16"
+            >
+              <img
+                src={s.logo}
+                alt={dup ? '' : s.name}
+                className={`w-auto max-w-none object-contain ${
+                  s.raw ? '' : '[filter:brightness(0)_invert(1)]'
+                }`}
+                style={{ maxHeight: `${38 * (s.scale ?? 1)}px` }}
+              />
+            </a>
+          )
+        })}
+      </div>
+    </div>
+  )
+}

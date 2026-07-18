@@ -1,4 +1,47 @@
-import { CONTACT_EMAIL, EVENT, FOOTER, MAIN_SITE_URL } from '../config'
+import {
+  BOOK_MEETING_URL,
+  CONTACT_EMAIL,
+  EVENT,
+  FOOTER,
+  INSTAGRAM,
+} from '../config'
+
+function MailIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  )
+}
+
+function InstagramIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
 
 function ContactBand() {
   return (
@@ -10,16 +53,39 @@ function ContactBand() {
         <h2 className="text-3xl font-bold text-white sm:text-4xl">
           Let's build something together
         </h2>
-        <p className="mt-4 text-mason-soft">
-          Ready to sponsor, or want a custom package? We'll get back to you within
-          a couple of days.
+        <p className="mt-4 text-white/80">
+          Ready to sponsor, or want a custom package? Book a time with us, or reach
+          out — we'll get back to you within 24 hours.
         </p>
-        <a
-          href={`mailto:${CONTACT_EMAIL}?subject=Sponsoring%20PatriotHacks%202027`}
-          className="mt-8 inline-block bg-paper px-8 py-3.5 font-semibold text-mason transition hover:bg-mason-soft"
-        >
-          {CONTACT_EMAIL}
-        </a>
+
+        {/* Primary CTA */}
+        <div className="mt-8">
+          <a
+            href={BOOK_MEETING_URL}
+            className="inline-flex items-center justify-center bg-white px-8 py-3.5 font-semibold text-mason transition hover:bg-white/90"
+          >
+            Book a meeting
+          </a>
+        </div>
+
+        {/* Other reach-out methods */}
+        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-10">
+          <a
+            href={`mailto:${CONTACT_EMAIL}?subject=Sponsoring%20PatriotHacks%202027`}
+            className="inline-flex items-center gap-2.5 font-medium text-white/90 transition hover:text-white"
+          >
+            <MailIcon />
+            {CONTACT_EMAIL}
+          </a>
+          <a
+            href={INSTAGRAM.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 font-medium text-white/90 transition hover:text-white"
+          >
+            <InstagramIcon />@{INSTAGRAM.handle}
+          </a>
+        </div>
       </div>
     </section>
   )
@@ -33,7 +99,7 @@ export default function Footer() {
       <ContactBand />
 
       <footer className="bg-night px-5 py-14 text-slate sm:px-8 sm:py-16">
-        <div className="mx-auto grid max-w-6xl items-start gap-12 text-center md:grid-cols-2 md:text-left">
+        <div className="flex flex-col items-center gap-10 text-center md:flex-row md:items-start md:justify-between md:text-left">
           {/* Left — identity */}
           <div className="flex flex-col items-center md:items-start">
             <div className="flex items-center gap-2.5">
@@ -63,12 +129,6 @@ export default function Footer() {
 
           {/* Right — links */}
           <div className="flex flex-col items-center gap-4 md:items-end">
-            <a
-              href={MAIN_SITE_URL}
-              className="text-sm font-medium text-white/85 transition hover:text-white"
-            >
-              ← Back to main site
-            </a>
             <a
               href={FOOTER.codeOfConductUrl}
               target="_blank"
