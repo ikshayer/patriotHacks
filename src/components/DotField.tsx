@@ -581,14 +581,19 @@ export default function DotField() {
       px = new Float32Array(n)
       py = new Float32Array(n)
       pa = new Float32Array(n)
+      // The field reads too faint on small screens, so give each dot a little
+      // more opacity and size on mobile only (same <640 breakpoint as the count).
+      const mobile = width < 640
+      const alphaBoost = mobile ? 1.18 : 1
+      const radBoost = mobile ? 1.22 : 1
       for (let i = 0; i < n; i++) {
         const a = Math.random() * Math.PI * 2
         dirX[i] = Math.cos(a)
         dirY[i] = Math.sin(a)
         amp[i] = 0.35 + Math.random() * 0.95
         phase[i] = Math.random() * Math.PI * 2
-        rad[i] = 1.15 + Math.random() * 1.35
-        baseAlpha[i] = 0.66 + Math.random() * 0.34
+        rad[i] = (1.15 + Math.random() * 1.35) * radBoost
+        baseAlpha[i] = Math.min(1, (0.66 + Math.random() * 0.34) * alphaBoost)
         shade[i] = pickShade()
         // ~11% of dots break away and drift out while a scene is held;
         // the rest just breathe in place so the shape stays intact.
