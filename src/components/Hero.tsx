@@ -9,11 +9,21 @@ export default function Hero() {
     >
       <DotField />
 
-      {/* Left-to-right paper wash keeps the copy legible while the dot scenes
-          on the right stay visible. */}
+      {/* Paper wash keeps the copy legible over the dot scenes.
+          Mobile/tablet: a strong center band behind the full-width text
+          (animation still peeks at top & bottom). */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 lg:hidden"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.95) 34%, rgba(255,255,255,0.95) 74%, rgba(255,255,255,0.5) 100%)',
+        }}
+      />
+      {/* Desktop: left → right, so the scenes stay visible on the right. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 hidden lg:block"
         style={{
           background:
             'linear-gradient(to right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.72) 28%, rgba(255,255,255,0.35) 48%, transparent 66%)',
