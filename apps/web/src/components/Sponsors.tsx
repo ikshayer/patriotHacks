@@ -128,6 +128,8 @@ export default function Sponsors() {
         <div className="mt-16 text-center">
           <a
             href={SPONSOR_SITE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block bg-mason px-8 py-3.5 font-semibold text-white transition hover:bg-mason-deep"
           >
             Interested in Sponsoring?
