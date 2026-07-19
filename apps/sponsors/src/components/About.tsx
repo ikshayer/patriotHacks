@@ -114,7 +114,7 @@ export default function About() {
             <iframe
               title={`Map of ${EVENT.university}`}
               src={LOCATION.mapSrc}
-              className="pointer-events-none absolute inset-0 h-full w-full [filter:invert(0.92)_hue-rotate(180deg)_brightness(0.95)]"
+              className="pointer-events-none absolute inset-0 h-full w-full"
               style={{ border: 0 }}
             />
           </a>

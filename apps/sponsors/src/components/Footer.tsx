@@ -47,13 +47,13 @@ function ContactBand() {
   return (
     <section
       id="contact"
-      className="scroll-mt-20 bg-mason px-5 py-20 text-center sm:px-8"
+      className="scroll-mt-20 bg-mist px-5 py-20 text-center sm:px-8"
     >
       <div className="mx-auto max-w-2xl">
-        <h2 className="text-3xl font-bold text-white sm:text-4xl">
+        <h2 className="text-3xl font-bold text-ink sm:text-4xl">
           Let's build something together
         </h2>
-        <p className="mt-4 text-white/80">
+        <p className="mt-4 text-slate">
           Ready to sponsor, or want a custom package? Book a time with us, or reach
           out — we'll get back to you within 24 hours.
         </p>
@@ -62,7 +62,7 @@ function ContactBand() {
         <div className="mt-8">
           <a
             href={BOOK_MEETING_URL}
-            className="inline-flex items-center justify-center bg-white px-8 py-3.5 font-semibold text-mason transition hover:bg-white/90"
+            className="inline-flex items-center justify-center bg-mason px-8 py-3.5 font-semibold text-white transition hover:bg-mason-deep"
           >
             Book a meeting
           </a>
@@ -72,7 +72,7 @@ function ContactBand() {
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-10">
           <a
             href={`mailto:${CONTACT_EMAIL}?subject=Sponsoring%20PatriotHacks%202027`}
-            className="inline-flex items-center gap-2.5 font-medium text-white/90 transition hover:text-white"
+            className="inline-flex items-center gap-2.5 font-medium text-slate transition hover:text-mason"
           >
             <MailIcon />
             {CONTACT_EMAIL}
@@ -81,7 +81,7 @@ function ContactBand() {
             href={INSTAGRAM.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 font-medium text-white/90 transition hover:text-white"
+            className="inline-flex items-center gap-2.5 font-medium text-slate transition hover:text-mason"
           >
             <InstagramIcon />@{INSTAGRAM.handle}
           </a>

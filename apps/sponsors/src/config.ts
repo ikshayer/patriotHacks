@@ -110,9 +110,11 @@ export type Sponsor = {
   /** Logo size multiplier (default 1). */
   scale?: number
   /**
-   * Skip the dark-mode whitening filter. Set for logos whose PNG is already
-   * styled for the dark theme (e.g. Salesforce's white cloud + black text,
-   * Red Bull's black-on-white sticker) and should render as-is.
+   * Skip the black-silhouette filter. The reel flattens every logo to a black
+   * silhouette so the mixed-color source art reads as one set on white. Set
+   * this for logos that already ship their own light-ready coloring and should
+   * render as-is (e.g. the Salesforce cloud, recolored to a grey/black cloud
+   * with white lettering — blackening it would swallow the white wordmark).
    */
   raw?: boolean
 }
@@ -122,13 +124,13 @@ export const SPONSORS: Sponsor[] = [
   { name: 'Microsoft', logo: '/sponsors/microsoft.png', scale: 1.4, url: 'https://microsoft.com' },
   { name: 'AWS', logo: '/sponsors/aws.png', scale: 1.5, url: 'https://aws.amazon.com' },
   { name: 'Palantir', logo: '/sponsors/palantir.png', scale: 1.4, url: 'https://palantir.com' },
-  { name: 'Salesforce', logo: '/sponsors/salesforce.png', scale: 1.55, raw: true, url: 'https://salesforce.com' },
+  { name: 'Salesforce', logo: '/sponsors/salesforce.svg', scale: 1.5, raw: true, url: 'https://salesforce.com' },
   { name: 'MetroStar', logo: '/sponsors/metrostar.png', scale: 1.4, url: 'https://metrostar.com' },
   { name: 'EY', logo: '/sponsors/ey.png', scale: 1.9, url: 'https://ey.com' },
   { name: 'Peraton', logo: '/sponsors/peraton.png', url: 'https://peraton.com' },
-  { name: 'Red Bull Basement', logo: '/sponsors/redbull.png', scale: 1.7, raw: true, url: 'https://redbull.com/basement' },
+  { name: 'Red Bull Basement', logo: '/sponsors/redbull.png', scale: 1.7, url: 'https://redbull.com/basement' },
   { name: 'Cloudforce', logo: '/sponsors/cloudforce.png', url: 'https://gocloudforce.com' },
-  { name: 'Department of Treasury', logo: '/sponsors/treasury.png', scale: 2, raw: true, url: 'https://home.treasury.gov' },
+  { name: 'Department of Treasury', logo: '/sponsors/treasury.png', scale: 2, url: 'https://home.treasury.gov' },
   { name: 'Fannie Mae', logo: '/sponsors/fannie-mae.png', scale: 1.4, url: 'https://fanniemae.com' },
   { name: 'GDIT', logo: '/sponsors/gdit.png', url: 'https://gdit.com' },
 ]

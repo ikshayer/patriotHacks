@@ -1,33 +1,32 @@
 @import 'tailwindcss';
 
 /* ------------------------------------------------------------------ *
- * Design tokens — DARK theme, George Mason green + gold on near-black.
+ * Design tokens — light theme, George Mason green + gold on white.
  * Exposed as Tailwind utilities: bg-paper, text-ink, text-mason, …
- * (Semantic names are kept from the light theme; only the values flip,
- * so components read the same classes.)
+ * (Matches the main marketing site's light theme; components read the
+ * same semantic classes, only the values differ.)
  * ------------------------------------------------------------------ */
 @theme {
-  /* Surfaces (dark) */
-  --color-paper: #0b0b0e; /* page background */
-  --color-mist: #15151a; /* elevated band (partners) */
-  --color-line: #2a2a33; /* hairline borders */
+  /* Surfaces */
+  --color-paper: #ffffff; /* page background */
+  --color-mist: #f4f6f4; /* elevated band (partners) */
+  --color-line: #e6e9e6; /* hairline borders */
 
   /* Text */
-  --color-ink: #f4f4f6; /* primary text (light) */
-  --color-slate: #9aa0ab; /* muted text */
+  --color-ink: #0f1712; /* primary text (dark) */
+  --color-slate: #566159; /* muted text */
 
   /* GMU green — primary brand */
   --color-mason: #006633; /* solid fills; white text reads on it */
-  --color-mason-deep: #008040; /* button hover — lifts brighter on dark */
-  --color-mason-soft: #103024; /* dark-green tint: chips, highlight col, glow */
-  --color-mason-bright: #3ecf7f; /* green for TEXT / checks on dark */
+  --color-mason-deep: #004a25; /* button hover — deepens on white */
+  --color-mason-soft: #e4f0e9; /* light-green tint: chips, highlight col */
 
-  /* GMU gold — accent */
+  /* GMU gold — accent (fills only; too light for text on white) */
   --color-gold: #ffc629;
   --color-gold-deep: #e0a500;
 
-  /* Even-darker surfaces (footer) */
-  --color-night: #060608;
+  /* Footer / dark surfaces */
+  --color-night: #0a0a0a;
   --color-night-2: #000000;
 
   /* Geist everywhere, including the PatriotHacks wordmark. */
@@ -55,14 +54,14 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-mason-bright);
+    outline: 2px solid var(--color-mason);
     outline-offset: 2px;
     border-radius: 4px;
   }
 
   ::selection {
     background: var(--color-gold);
-    color: #0b0b0e;
+    color: var(--color-ink);
   }
 }
 
