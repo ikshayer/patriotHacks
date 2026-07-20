@@ -1,5 +1,5 @@
 import { HERO } from '../config'
-import HeroGrid from './HeroGrid'
+import RadialSphere from './RadialSphere'
 
 export default function Hero() {
   return (
@@ -7,11 +7,11 @@ export default function Hero() {
       id="top"
       className="relative flex min-h-[100svh] flex-col overflow-hidden bg-paper"
     >
-      {/* Photo grid — right side only; a wall of hackathon shots. */}
-      <HeroGrid className="absolute inset-y-0 right-0 w-1/2 lg:w-[52%]" />
+      {/* Wireframe globe — right side only, bleeding off the edge. */}
+      <RadialSphere className="absolute inset-y-0 right-0 w-1/2 lg:w-[52%]" />
 
-      {/* Feather the grid's left edge into the dark left side so there's no
-          hard seam. The left half stays solid for the logo + headline. */}
+      {/* Feather the globe's left edge into the page so there's no hard seam.
+          The left half stays solid for the logo + headline. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-paper from-45% via-paper/40 via-60% to-transparent to-78%"

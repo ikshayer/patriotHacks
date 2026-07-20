@@ -82,21 +82,6 @@ export const LOCATION = {
 } as const
 
 /* ---------------------------------------------------------------------
- * Hero photo carousel
- * ---------------------------------------------------------------------
- * The hero cross-fades through these photos. Drop your hackathon photos
- * into public/hero/ and list them here — landscape shots (roughly 3:2 or
- * 16:9) read best. The files currently shipped are placeholders; swap them
- * for real event photos (add or remove entries freely).
- * ------------------------------------------------------------------- */
-export type HeroImage = { src: string; alt: string }
-
-export const HERO_IMAGES: HeroImage[] = [
-  { src: '/hero/1.jpg', alt: 'Students collaborating at PatriotHacks' },
-  { src: '/hero/2.jpg', alt: 'The PatriotHacks venue during the event' },
-]
-
-/* ---------------------------------------------------------------------
  * Past sponsors — the horizontal logo marquee.
  * ---------------------------------------------------------------------
  * Logos rotate in an infinite horizontal reel. Drop a logo file in
