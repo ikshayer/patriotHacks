@@ -1,0 +1,22 @@
+# Netlify config (used only if you deploy to Netlify instead of Vercel)
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Sponsor page — a second Vite entry built to /sponsor/index.html.
+[[redirects]]
+  from = "/sponsor"
+  to = "/sponsor/index.html"
+  status = 200
+
+# Booking page — the standalone /book/index.html for the bare /book path.
+[[redirects]]
+  from = "/book"
+  to = "/book/index.html"
+  status = 200
+
+# SPA fallback (must come last).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

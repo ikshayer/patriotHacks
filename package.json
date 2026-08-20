@@ -3,18 +3,23 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "workspaces": [
-    "apps/*"
-  ],
   "scripts": {
-    "dev": "npm run dev --workspace apps/web",
-    "dev:web": "npm run dev --workspace apps/web",
-    "dev:sponsors": "npm run dev --workspace apps/sponsors",
-    "build": "npm run build --workspaces",
-    "build:web": "npm run build --workspace apps/web",
-    "build:sponsors": "npm run build --workspace apps/sponsors",
-    "preview:web": "npm run preview --workspace apps/web",
-    "preview:sponsors": "npm run preview --workspace apps/sponsors",
-    "lint": "npm run lint --workspaces"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0"
   }
 }
