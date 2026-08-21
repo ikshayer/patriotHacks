@@ -3,16 +3,27 @@
   command = "npm run build"
   publish = "dist"
 
-# Sponsor page — a second Vite entry built to /sponsor/index.html.
+# Sponsor page — a Vite entry built to /sponsor.html.
 [[redirects]]
   from = "/sponsor"
-  to = "/sponsor/index.html"
+  to = "/sponsor.html"
   status = 200
 
-# Booking page — the standalone /book/index.html for the bare /book path.
+# Application forms — Vite entries built to /volunteer.html and /judge.html.
+[[redirects]]
+  from = "/volunteer"
+  to = "/volunteer.html"
+  status = 200
+
+[[redirects]]
+  from = "/judge"
+  to = "/judge.html"
+  status = 200
+
+# Booking page — the standalone public/book.html for the bare /book path.
 [[redirects]]
   from = "/book"
-  to = "/book/index.html"
+  to = "/book.html"
   status = 200
 
 # SPA fallback (must come last).

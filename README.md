@@ -6,13 +6,16 @@ with **Vite + React + TypeScript + Tailwind CSS v4**.
 | Page | URL | Source | What it is |
 | --- | --- | --- | --- |
 | **Home** | `/` | `index.html` → [`src/`](src) | Landing page — hero, sponsor grid, FAQ, interest-list email capture. |
-| **Sponsor** | `/sponsor` | `sponsor/index.html` → [`src/sponsor/`](src/sponsor) | Sponsorship prospectus — the pitch, stats, past-sponsor reel, benefits. |
-| **Book** | `/book` | [`public/book/index.html`](public/book/index.html) | Standalone Cal.com booking embed the sponsor page links to. |
+| **Sponsor** | `/sponsor` | `sponsor.html` → [`src/sponsor/`](src/sponsor) | Sponsorship prospectus — the pitch, stats, past-sponsor reel, benefits. |
+| **Volunteer** | `/volunteer` | `volunteer.html` → [`src/forms/volunteer.tsx`](src/forms/volunteer.tsx) | Volunteer application form → Supabase. |
+| **Judge** | `/judge` | `judge.html` → [`src/forms/judge.tsx`](src/forms/judge.tsx) | Judge application form → Supabase. |
+| **Book** | `/book` | [`public/book.html`](public/book.html) | Standalone Cal.com booking embed the sponsor page links to. |
 
-Home and Sponsor are two entry points of one Vite build, so each page ships
-only its own JavaScript and keeps its own `<title>` and social-preview tags.
-They share `src/index.css` (the green-and-gold-on-white theme) and the parts of
-`src/config.ts` that both need.
+Home, Sponsor, Volunteer, and Judge are four entry points of one Vite build, so
+each page ships only its own JavaScript and keeps its own `<title>` and
+social-preview tags. They share `src/index.css` (the green-and-gold-on-white
+theme) and the parts of `src/config.ts` that they need. The two form pages are
+the only ones that pull in the Supabase client.
 
 ## Run it locally
 
@@ -39,6 +42,18 @@ Almost everything is data, not JSX.
 - `FOOTER` — code-of-conduct link, address lines, and social links. A social
   entry with an empty `href` renders greyed-out instead of clickable.
 - `SIGNUP_ENDPOINT` — the interest-list capture (see below).
+- `INTEREST_CARDS` — the two cards under the "Interested?" heading that link to
+  `/volunteer` and `/judge`.
+
+**[`src/forms/config.ts`](src/forms/config.ts)** — the two application forms:
+
+- `VOLUNTEER_FORM` and `JUDGE_FORM` — title, description, questions, and
+  required checkboxes for each. Both render through one shared component
+  ([`src/forms/FormPage.tsx`](src/forms/FormPage.tsx)), so editing the data here
+  is enough; you should not need to touch the JSX.
+- Every field's `name` **must match a column** in the matching Supabase table.
+  If you add a question here, add the column in
+  [`schema.sql`](schema.sql) too.
 
 **[`src/sponsor/config.ts`](src/sponsor/config.ts)** — the `/sponsor` page:
 
@@ -51,7 +66,7 @@ Almost everything is data, not JSX.
 - `TIERS` + `BENEFITS` — the tier/benefit matrix data. Prices ship as
   **placeholders**; replace them before sharing this with sponsors.
 - `BOOK_MEETING_URL` — the "Book a meeting" target. To change which calendar it
-  opens, edit `public/book/index.html`.
+  opens, edit `public/book.html`.
 - `CONTACT_EMAIL` and `FOOTER` are re-exported from `src/config.ts`, so there is
   only one place to edit them.
 
@@ -74,12 +89,79 @@ success message without storing anything. New emails then land as rows in your
 Sheet. (Only people you share the Sheet with can read it — the endpoint URL
 itself is safe to ship.)
 
+### Wire up the volunteer & judge forms (Supabase)
+
+The `/volunteer` and `/judge` forms write to two Supabase tables.
+
+1. Create a project at [supabase.com](https://supabase.com).
+2. **SQL Editor → New query**, paste all of
+   [`schema.sql`](schema.sql), and **Run**. That creates the
+   `volunteers` and `judges` tables and locks them down (see below).
+3. **Project Settings → API**: copy the **Project URL** and the **anon/public**
+   key.
+4. Locally: `cp .env.example .env` and paste both values in.
+   For production: set the same two variables (`VITE_SUPABASE_URL` and
+   `VITE_SUPABASE_ANON_KEY`) in your Vercel or Netlify project settings, then
+   redeploy — Vite inlines them at build time, so a redeploy is required for a
+   change to take effect.
+
+Until both are set, each form renders a visible "not connected to a database"
+warning rather than silently discarding submissions.
+
+Read the responses in **Table Editor → volunteers / judges**.
+
+**How the security works.** The anon key ships inside the JavaScript bundle —
+that is normal and expected. `schema.sql` revokes every default grant on the two
+tables and grants `anon` nothing but `INSERT`, so that key can add a row and
+can never read one. The applicant list is not reachable from the browser.
+
+**Spam protection.** Two traps run in the browser, both checked *only after* the
+submission is otherwise valid, so they can never swallow a real person's typo:
+
+- a **honeypot** field ("Website") positioned off-screen and out of the tab
+  order — invisible to people, irresistible to bots that fill every input;
+- a **timing trap** rejecting anything that completes the whole form in under
+  three seconds, which no human does.
+
+A caught bot sees the normal success screen and nothing is written. Telling it
+that it was caught would only teach its author what to fix.
+
+Both are form-level, so they stop drive-by spam but **not** a script that posts
+straight to the Supabase REST endpoint — the anon key is in the bundle, so that
+path exists by design. What still applies to a direct post is everything the
+database enforces: the length caps, the required-acknowledgement `CHECK`
+constraints, and the unique email index. If the forms ever do attract a
+determined bot, the fix is Cloudflare Turnstile verified in a Supabase Edge
+Function, with `anon`'s `INSERT` grant revoked so the function is the only write
+path. Per-IP rate limiting was deliberately left out: campus and dorm networks
+put many students behind one address, and blocking real applicants is worse than
+deleting a few junk rows.
+
+**How the one-submission-per-email rule works.** Each table has a unique index
+on `lower(email)`. The form does *not* look the email up first — doing that
+would require granting the browser `SELECT` on every applicant. It just inserts,
+and treats Postgres error `23505` (unique violation) as "this email already
+applied." Same guardrail, no read access, and no race between two simultaneous
+submissions. Email is lowercased before insert, so `Alex@gmu.edu` and
+`alex@gmu.edu` count as one person. The two tables are independent, so the same
+person may apply to volunteer *and* to judge.
+
 ## Deploy
 
 One project, one build. Configured for **Vercel** (`vercel.json`) and
 **Netlify** (`netlify.toml`): build command `npm run build`, output `dist/`,
 **root directory the repo root**.
 
-Both configs rewrite the bare `/sponsor` and `/book` paths to their
-`index.html` files; `vite.config.ts` does the same for the dev and preview
-servers, so every URL resolves identically in all three.
+Each page is one flat `<name>.html` file at the repo root, not a
+`<name>/index.html` folder. Vite names a page's build output after its input
+path, so `volunteer.html` becomes `dist/volunteer.html`, and the rewrites map
+the clean `/volunteer` URL onto it — same URLs, one file per page instead of one
+directory per page. `vite.config.ts` applies the same mapping to the dev and
+preview servers, so every URL resolves identically in all three.
+
+> Adding a new page means touching **four** places: a new `<name>.html` at the
+> root, `rollupOptions.input` and `PAGES` in `vite.config.ts`, `rewrites` in
+> `vercel.json`, and `redirects` in `netlify.toml`.
+
+Remember to set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the host's
+environment variables, or the two form pages will ship unconfigured.

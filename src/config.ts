@@ -12,6 +12,37 @@ export const CONTACT_EMAIL = 'patriothacksgmu@gmail.com'
 /** The sponsorship prospectus page — where "Interested in Sponsoring?" goes. */
 export const SPONSOR_PAGE_URL = '/sponsor'
 
+/* ---------------------------------------------------------------------
+ * "Interested?" — the two application forms.
+ * ---------------------------------------------------------------------
+ * Each card below links to its own page. The questions, copy, and
+ * database table for each form live in src/forms/config.ts; this is only
+ * the pitch shown on the home page.
+ * ------------------------------------------------------------------- */
+export type InterestCard = {
+  title: string
+  blurb: string
+  cta: string
+  href: string
+}
+
+export const INTEREST_CARDS: InterestCard[] = [
+  {
+    title: 'Volunteer',
+    blurb:
+      'Help run the weekend — check hackers in, keep the food and swag moving, and staff the help desk. No experience needed.',
+    cta: 'Apply to volunteer',
+    href: '/volunteer',
+  },
+  {
+    title: 'Judge',
+    blurb:
+      'Spend a few hours meeting teams, watching demos, and helping pick the projects that stand out. Industry and academic judges welcome.',
+    cta: 'Apply to judge',
+    href: '/judge',
+  },
+]
+
 /** Hero text. */
 export const EVENT = {
   /** Shown in the hero, e.g. "Coming Spring 2027". */

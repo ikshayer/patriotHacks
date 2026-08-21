@@ -23,7 +23,7 @@ export const INSTAGRAM = {
 
 /**
  * Dedicated booking page — the "Book a meeting" buttons link here. It's a
- * standalone page (public/book/index.html) that embeds the Cal.com
+ * standalone page (public/book.html) that embeds the Cal.com
  * scheduler and nothing else. To change the booking link, edit that file.
  */
 export const BOOK_MEETING_URL = '/book'

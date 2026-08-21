@@ -3,15 +3,20 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 /**
- * Bare paths for the non-root pages. /sponsor is a second Vite entry
- * (sponsor/index.html) and /book is a standalone static file
- * (public/book/index.html); without a trailing slash the dev and preview
- * servers would otherwise miss both. Production hosts are handled by
- * vercel.json / netlify.toml so the same URLs resolve everywhere.
+ * Bare paths for the non-root pages. Each page is a single flat .html file
+ * rather than a <name>/index.html folder — Vite names a page's output after
+ * its input path, so `volunteer.html` builds to `dist/volunteer.html` and the
+ * rewrites below (and in vercel.json / netlify.toml) map the clean `/volunteer`
+ * URL onto it. Same URLs, no directory per page.
+ *
+ * /sponsor, /volunteer and /judge are Vite entries; /book is a standalone
+ * static file served straight from public/.
  */
 const PAGES: Record<string, string> = {
-  '/sponsor': '/sponsor/index.html',
-  '/book': '/book/index.html',
+  '/sponsor': '/sponsor.html',
+  '/volunteer': '/volunteer.html',
+  '/judge': '/judge.html',
+  '/book': '/book.html',
 }
 
 function pageRoutes(): Plugin {
@@ -47,7 +52,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'index.html',
-        sponsor: 'sponsor/index.html',
+        sponsor: 'sponsor.html',
+        volunteer: 'volunteer.html',
+        judge: 'judge.html',
       },
     },
   },
