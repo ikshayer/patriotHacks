@@ -163,5 +163,11 @@ preview servers, so every URL resolves identically in all three.
 > root, `rollupOptions.input` and `PAGES` in `vite.config.ts`, `rewrites` in
 > `vercel.json`, and `redirects` in `netlify.toml`.
 
+`/apply` is not a page — it is a 302 off the site to
+<https://app.patriothacks.org/>, declared in `redirects` in `vercel.json`,
+`netlify.toml`, and `EXTERNAL` in `vite.config.ts`. Temporary rather than
+permanent so the application host can change between seasons without browsers
+holding a cached redirect.
+
 Remember to set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the host's
 environment variables, or the two form pages will ship unconfigured.

@@ -19,26 +19,40 @@ const PAGES: Record<string, string> = {
   '/book': '/book.html',
 }
 
+/** Bare paths that leave the site entirely. 302 so the target can move. */
+const EXTERNAL: Record<string, string> = {
+  '/apply': 'https://app.patriothacks.org/',
+}
+
 function pageRoutes(): Plugin {
-  const rewrite = (req: { url?: string }) => {
-    // req is typed without @types/node here, so narrow to the one field.
-    const page = req.url && PAGES[req.url.replace(/\/$/, '')]
+  const handle = (
+    req: { url?: string },
+    res: { writeHead: (code: number, headers: Record<string, string>) => void; end: () => void },
+  ) => {
+    // req/res are typed without @types/node here, so narrow to what is used.
+    const path = req.url?.replace(/\/$/, '')
+    const target = path && EXTERNAL[path]
+    if (target) {
+      res.writeHead(302, { Location: target })
+      res.end()
+      return true
+    }
+    const page = path && PAGES[path]
     if (page) {
       req.url = page
     }
+    return false
   }
   return {
     name: 'page-routes',
     configureServer(server) {
-      server.middlewares.use((req, _res, next) => {
-        rewrite(req as { url?: string })
-        next()
+      server.middlewares.use((req, res, next) => {
+        if (!handle(req as { url?: string }, res)) next()
       })
     },
     configurePreviewServer(server) {
-      server.middlewares.use((req, _res, next) => {
-        rewrite(req as { url?: string })
-        next()
+      server.middlewares.use((req, res, next) => {
+        if (!handle(req as { url?: string }, res)) next()
       })
     },
   }

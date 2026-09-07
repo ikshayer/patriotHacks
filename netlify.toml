@@ -26,6 +26,14 @@
   to = "/book.html"
   status = 200
 
+# Application — off-site on the app subdomain. 302 rather than 301 so the
+# target can move between seasons without browsers caching the old URL.
+[[redirects]]
+  from = "/apply"
+  to = "https://app.patriothacks.org/"
+  status = 302
+  force = true
+
 # SPA fallback (must come last).
 [[redirects]]
   from = "/*"

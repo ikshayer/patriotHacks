@@ -3,6 +3,9 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/apply", "destination": "https://app.patriothacks.org/", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/sponsor", "destination": "/sponsor.html" },
     { "source": "/volunteer", "destination": "/volunteer.html" },
