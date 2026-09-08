@@ -83,7 +83,7 @@ export default function Sponsors() {
   return (
     <section
       id="sponsors"
-      className="scroll-mt-20 bg-mist px-6 py-24 sm:px-10 sm:py-32 lg:px-20"
+      className="scroll-mt-32 bg-mist px-6 py-24 sm:px-10 sm:py-32 lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <header className="mb-14 text-center">

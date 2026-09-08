@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Banner from './Banner'
 
 const LINKS = [
   { href: '#sponsors', label: 'Sponsors' },
@@ -24,6 +25,8 @@ export default function Navbar() {
           : 'border-b border-transparent'
       }`}
     >
+      <Banner />
+
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <a
           href="#top"
@@ -52,7 +55,7 @@ export default function Navbar() {
               href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2026-season&utm_content=white"
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute -top-4 right-0 z-50 block w-14 sm:w-16"
+              className="absolute -top-1 right-0 z-50 block w-14 sm:w-16"
               aria-label="Major League Hacking 2026 Hackathon Season — official event"
             >
               <img
