@@ -4,7 +4,7 @@ export default function Interested() {
   return (
     <section
       id="interested"
-      className="scroll-mt-20 bg-paper px-6 py-24 sm:px-10 sm:py-32 lg:px-20"
+      className="scroll-mt-32 bg-paper px-6 py-24 sm:px-10 sm:py-32 lg:px-20"
     >
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16 lg:gap-24">
         <header>

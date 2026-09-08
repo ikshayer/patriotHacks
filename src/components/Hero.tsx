@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] flex-col items-start justify-center overflow-hidden bg-paper px-6 pb-24 pt-28 text-left sm:px-10 sm:pt-32 lg:px-20"
+      className="relative flex min-h-[100svh] flex-col items-start justify-center overflow-hidden bg-paper px-6 pb-24 pt-36 text-left sm:px-10 sm:pt-40 lg:px-20"
     >
       <DotField />
 
@@ -43,7 +43,7 @@ export default function Hero() {
         </p>
 
         {/* Email capture */}
-        <div id="notify" className="mt-5 w-full max-w-md scroll-mt-28">
+        <div id="notify" className="mt-5 w-full max-w-md scroll-mt-36">
           <EmailSignup />
         </div>
       </div>
