@@ -24,6 +24,7 @@ const PAGES: Record<string, string> = {
 /** Bare paths that leave the site entirely. 302 so the target can move. */
 const EXTERNAL: Record<string, string> = {
   '/apply': 'https://app.patriothacks.org/',
+  '/001': 'https://app.patriothacks.org/001',
 }
 
 function pageRoutes(): Plugin {

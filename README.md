@@ -171,9 +171,10 @@ editing only its `.md` file** — `content/PRIVACY.md` and `content/TERMS.md`.
 Nothing about a document's structure is hardcoded, so headings, tables and
 lists come through as written.
 
-`/apply` is not a page — it is a 302 off the site to
-<https://app.patriothacks.org/>, declared in `redirects` in `vercel.json`,
-`netlify.toml`, and `EXTERNAL` in `vite.config.ts`. Temporary rather than
+`/apply` and `/001` are not pages — they are 302s off the site to
+<https://app.patriothacks.org/> and <https://app.patriothacks.org/001>,
+declared in `redirects` in `vercel.json`, `netlify.toml`, and `EXTERNAL` in
+`vite.config.ts`. Temporary rather than
 permanent so the application host can change between seasons without browsers
 holding a cached redirect.
 

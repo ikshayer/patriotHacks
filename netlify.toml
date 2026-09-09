@@ -45,6 +45,12 @@
   status = 302
   force = true
 
+[[redirects]]
+  from = "/001"
+  to = "https://app.patriothacks.org/001"
+  status = 302
+  force = true
+
 # SPA fallback (must come last).
 [[redirects]]
   from = "/*"
