@@ -1,7 +1,7 @@
 # Terms of Service
 
-**Effective date:** [Sept 6th, 2026]
-**Last updated:** [Sept 8th, 2026]
+**Effective date:** Sept 6th, 2026
+**Last updated:** Sept 8th, 2026
 
 These terms govern your use of the PatriotHacks application platform, operated by PatriotHacks, a registered student organization at George Mason University. "We" and
 "us" mean that organization. "You" means the person using the platform.
