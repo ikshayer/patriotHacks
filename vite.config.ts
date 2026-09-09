@@ -17,6 +17,8 @@ const PAGES: Record<string, string> = {
   '/volunteer': '/volunteer.html',
   '/judge': '/judge.html',
   '/book': '/book.html',
+  '/privacy': '/privacy.html',
+  '/tos': '/tos.html',
 }
 
 /** Bare paths that leave the site entirely. 302 so the target can move. */
@@ -69,6 +71,8 @@ export default defineConfig({
         sponsor: 'sponsor.html',
         volunteer: 'volunteer.html',
         judge: 'judge.html',
+        privacy: 'privacy.html',
+        tos: 'tos.html',
       },
     },
   },

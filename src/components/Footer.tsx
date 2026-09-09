@@ -60,14 +60,28 @@ export default function Footer() {
 
           {/* Right — code of conduct, socials, address */}
           <div className="flex flex-col items-center gap-5 md:items-end">
-            <a
-              href={FOOTER.codeOfConductUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-white/85 transition hover:text-white"
-            >
-              MLH Code of Conduct
-            </a>
+            <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:justify-end">
+              <a
+                href={FOOTER.codeOfConductUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-white/85 transition hover:text-white"
+              >
+                MLH Code of Conduct
+              </a>
+              <a
+                href="/privacy"
+                className="text-sm font-medium text-white/85 transition hover:text-white"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="/tos"
+                className="text-sm font-medium text-white/85 transition hover:text-white"
+              >
+                Terms of Service
+              </a>
+            </nav>
 
             <ul className="flex items-center gap-5">
               {FOOTER.socials.map((s) =>

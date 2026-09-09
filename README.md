@@ -163,6 +163,14 @@ preview servers, so every URL resolves identically in all three.
 > root, `rollupOptions.input` and `PAGES` in `vite.config.ts`, `rewrites` in
 > `vercel.json`, and `redirects` in `netlify.toml`.
 
+`/privacy` and `/tos` are the two legal documents. Each is a Vite entry that
+imports a Markdown file from `content/` with `?raw` and renders it through
+`react-markdown` (plus `remark-gfm`, so tables and strikethrough work), styled
+by the `prose-legal` block in `src/index.css`. **Editing either policy means
+editing only its `.md` file** — `content/PRIVACY.md` and `content/TERMS.md`.
+Nothing about a document's structure is hardcoded, so headings, tables and
+lists come through as written.
+
 `/apply` is not a page — it is a 302 off the site to
 <https://app.patriothacks.org/>, declared in `redirects` in `vercel.json`,
 `netlify.toml`, and `EXTERNAL` in `vite.config.ts`. Temporary rather than

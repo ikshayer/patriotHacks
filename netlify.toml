@@ -26,6 +26,17 @@
   to = "/book.html"
   status = 200
 
+# Legal pages — Vite entries that render the Markdown in /content.
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/tos"
+  to = "/tos.html"
+  status = 200
+
 # Application — off-site on the app subdomain. 302 rather than 301 so the
 # target can move between seasons without browsers caching the old URL.
 [[redirects]]

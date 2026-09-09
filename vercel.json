@@ -10,6 +10,8 @@
     { "source": "/sponsor", "destination": "/sponsor.html" },
     { "source": "/volunteer", "destination": "/volunteer.html" },
     { "source": "/judge", "destination": "/judge.html" },
-    { "source": "/book", "destination": "/book.html" }
+    { "source": "/book", "destination": "/book.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/tos", "destination": "/tos.html" }
   ]
 }
